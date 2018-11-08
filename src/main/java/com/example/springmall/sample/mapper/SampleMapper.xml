@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springmall.sample.mapper.SampleMapper">
+    <select id="selectCountSample" resultType="int">
+        SELECT COUNT(*) FROM member;
+    </select>
+	<select id="selectSampleAll" resultType="HashMap">
+		SELECT sample_no AS sampleNo
+			  ,sample_id AS sampleId
+			  ,sample_pw AS samplePw
+		FROM member
+		ORDER BY sample_no 
+		DESC
+		LIMIT #{startRow},#{rowPerPage}
+	</select>
+	<delete id="deleteSample" parameterType="int">
+		DELETE FROM member where sample_no =#{value}
+	</delete>
+	<select id="selectOne" parameterType="int" resultType="com.example.springmall.sample.vo.Sample">
+		SELECT sample_no AS sampleNo
+			  ,sample_id AS sampleId
+			  ,sample_pw AS samplePw
+		FROM member
+		WHERE sample_no =#{sampleNo}
+	</select>
+	<update id="updateSample" parameterType="com.example.springmall.sample.vo.Sample">
+		UPDATE member
+		SET sample_id =#{sampleId}
+		   ,sample_pw =#{samplePw}
+		WHERE sample_no =#{sampleNo}
+	</update>
+	<insert id="insertSample" parameterType="com.example.springmall.sample.vo.Sample">
+		INSERT INTO member(sample_id,sample_pw)
+		VALUES (#{sampleId},#{samplePw})
+	</insert>
+</mapper>
