@@ -12,8 +12,15 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<td colspan="4"></td>
-				<td align="center"><a href="/sample/addSample"><button class="btn btn-primary">회 원 가 입</button></a></td>
+				<td colspan="3"></td>
+				<c:if test="${sId != null}">
+					<td>${sId} 님 로그인중..</td>
+					<td><a href="/sample/logoutSample"><button class="btn btn-primary">로그아웃</button></td> 
+				</c:if>
+				<c:if test="${sId == null}">
+					<td align="center"><a href="/sample/loginSample"><button class="btn btn-primary">로 그 인</button></td>
+					<td align="center"><a href="/sample/addSample"><button class="btn btn-primary">회 원 가 입</button></a></td>
+				</c:if>
 			</tr>
 			<tr class="info" align="center">
 				<td>no</td>

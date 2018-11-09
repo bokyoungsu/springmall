@@ -3,6 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springmall.sample.mapper.SampleMapper">
+    <select id="loginSample" parameterType="com.example.springmall.sample.vo.Sample" resultType="com.example.springmall.sample.vo.Sample">
+    	SELECT sample_no AS sampleNo
+    		  ,sample_id AS sampleId
+			  ,sample_pw AS samplePw
+		FROM member
+		WHERE sample_id=#{sampleId}
+		AND sample_pw=#{samplePw}
+    </select>
+    
     <select id="selectCountSample" resultType="int">
         SELECT COUNT(*) FROM member;
     </select>

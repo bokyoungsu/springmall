@@ -20,4 +20,6 @@ public interface SampleMapper {
 	int updateSample(Sample sample);
 	// 수정할 회원 조회
 	Sample selectOne(int sampleNo);
+	// 로그인 체크
+	Sample loginSample(Sample sample);
 }

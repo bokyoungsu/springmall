@@ -15,6 +15,24 @@ public class SampleService {
 	@Autowired
 	private SampleMapper sampleMapper;
 	
+	public int loginSample(Sample sample) {
+		int success = 0;
+		Sample getSample = new Sample();
+		getSample = (Sample) sampleMapper.loginSample(sample);
+		System.out.println(sample.getSampleId()+"<-넣은값");
+		System.out.println(getSample.getSampleId()+"<-결과");
+		System.out.println(sample.getSamplePw()+"넣은값");
+		System.out.println(getSample.getSamplePw()+"<-결과");
+		if(sample.getSampleId().equals(getSample.getSampleId()) && sample.getSamplePw().equals(getSample.getSamplePw())) {
+			System.out.println("01로그인성공");
+			success = 1;
+		}else {
+			System.out.println("02로그인실패");
+			success = 2;
+		}
+		return success;
+	}
+	
 	// 수정폼 
 	public Sample getSample(int sampleNo) {
 		System.out.println("SampleService.java.getSample()");
