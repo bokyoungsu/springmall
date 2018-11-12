@@ -1,6 +1,9 @@
 package com.example.springmall.sample.controller;
 
+
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.springmall.sample.service.SampleService;
 import com.example.springmall.sample.vo.Sample;
+import com.example.springmall.sample.vo.SampleRequest;
 /* @Controller는 Spring MVC의 Controller 클래스 선언을 단순화. 스프링 컨트롤러, 서블릿을 상속할 필요가 없으며, @Controller로 등록된 클래스 파일에 대한 bean을 자동으로 생성해준다
 (component-scan 이용)*/
 @Controller
@@ -33,9 +37,9 @@ public class SampleController {
 	}
 	// 수정 액션 (update member)
 	@RequestMapping(value="/sample/modifySample",method=RequestMethod.POST)
-	public String modifySample(Sample sample) {
+	public String modifySample(SampleRequest sampleRequest) {
 		System.out.println("SampleCountroller.java.modifySample().POST");
-		sampleService.modifySample(sample);
+		sampleService.modifySample(sampleRequest);
 		return "redirect:/sample/sampleList";
 	
 	}
@@ -48,10 +52,11 @@ public class SampleController {
 	}
 	// 입력 액션 메서드(insert action)
 	@RequestMapping(value="/sample/addSample",method=RequestMethod.POST)
-	public String addSample(Sample sample) { // command 객체 
+	public String addSample(SampleRequest sampleRequest,HttpServletRequest request) { // command 객체 
 		System.out.println("SampleCountroller.java.addSample().POST");
 		// command 객체의 멤버변수 == input 태그 name 속성 
-		int row = sampleService.addSample(sample);
+		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/uploads");
+		int row = sampleService.addSample(sampleRequest,path);
 		return "redirect:/sample/sampleList";
 	}
 	// 리스트 메서드(select member)
@@ -63,11 +68,9 @@ public class SampleController {
 		model.addAttribute("startRow",startRow);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("sampleList",sampleList);
-		System.out.println(sampleList);
 		return "/sample/sampleList";
 		
 	}
-	
 	// 삭제 메서드 (delete member)
 	@RequestMapping(value="/sample/removeSample",method=RequestMethod.GET)
 	public String removeSample(@RequestParam(value="sampleNo") int sampleNo) {

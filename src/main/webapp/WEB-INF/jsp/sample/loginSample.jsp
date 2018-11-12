@@ -5,10 +5,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(document).ready(()=>{
+	    $('#loginBtn').click(()=>{
+	    	$('#loginForm').submit();
+	    });
+	});
+</script>
 </head>
 <body>
 	<h2>SAMPLE LOGIN</h2>
-	<form action="/sample/loginSample" method="post">
+	<form id="loginForm" action="/sample/loginSample" method="post">
 		<table class="table">
 			<tr>
 				<td>아이디</td>
@@ -19,7 +27,7 @@
 				<td><input type="text" name="samplePw" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="로그인" /></td>
+				<td colspan="2"><button id="loginBtn" class="btn btn-primary">로그인</button></td>
 				<td></td>
 			</tr>
 		</table>

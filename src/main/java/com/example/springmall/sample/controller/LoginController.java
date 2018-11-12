@@ -4,13 +4,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.example.springmall.sample.service.SampleService;
 import com.example.springmall.sample.vo.Sample;
+import com.example.springmall.sample.vo.SampleRequest;
 
 @Controller
 public class LoginController {
@@ -24,15 +24,15 @@ public class LoginController {
 		return "/sample/loginSample";
 	}
 	@RequestMapping(value="/sample/loginSample",method=RequestMethod.POST)
-	public String loginSample(HttpSession session,Sample sample) {
+	public String loginSample(HttpSession session,SampleRequest sampleRequest) {
 		String path = "";
 		int success;
 		System.out.println("LoginCountroller.java.loginSample().POST");
 		
-		success = sampleService.loginSample(sample);
+		success = sampleService.loginSample(sampleRequest);
 		System.out.println(success);
 		if(success == 1) {
-			session.setAttribute("sId", sample.getSampleId());
+			session.setAttribute("sId", sampleRequest.getSampleId());
 			path = "redirect:/sample/sampleList";
 		}else {
 			path = "redirect:/sample/loginSample";

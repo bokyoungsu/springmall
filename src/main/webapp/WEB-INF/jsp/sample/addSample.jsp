@@ -39,19 +39,24 @@
 </head>
 <body>
 	<h2>회원 가입</h2>
-	
-	<form id="addSampleForm" action="${pageContext.request.contextPath}/sample/addSample" method="post">
+	<form id="addSampleForm" action="${pageContext.request.contextPath}/sample/addSample" method="post" enctype="multipart/form-data">
 		<table class="table">
 			<tr>
 				<td>ID</td>
-				<td><input type="text" name="sampleId" id="sampleId"/><label id="addSampleHelp"></label></td>
+				<td><label id="addSampleHelp"></label></td>
+				<td><input type="text" name="sampleId" id="sampleId"/></td>
 			</tr>
 			<tr>
 				<td>PW</td>
-				<td><input type="text" name="samplePw" id="samplePw"/><label id="addSampleHelp1"></label></td>
+				<td><label id="addSampleHelp1"></label></td>
+				<td><input type="text" name="samplePw" id="samplePw"/></td>
 			</tr>
 			<tr>
-				<td callspan="2"><button id="addBtn" class="btn btn-primary">회원등록</button></td>
+				<td>파일업로드</td>
+				<td colspan="2"><input type="file" name="multipartFile"/></td>
+			</tr>
+			<tr>
+				<td colspan="3"><button id="addBtn" class="btn btn-primary">회원등록</button></td>
 			</tr>
 		</table>
 	</form>

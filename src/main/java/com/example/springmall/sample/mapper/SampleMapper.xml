@@ -41,7 +41,12 @@
 		WHERE sample_no =#{sampleNo}
 	</update>
 	<insert id="insertSample" parameterType="com.example.springmall.sample.vo.Sample">
-		INSERT INTO member(sample_id,sample_pw)
+		<selectKey resultType="int" keyProperty="sampleNo" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+		INSERT INTO member(
+					sample_id
+				   ,sample_pw)
 		VALUES (#{sampleId},#{samplePw})
 	</insert>
 </mapper>
