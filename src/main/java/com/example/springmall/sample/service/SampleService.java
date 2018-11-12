@@ -2,6 +2,7 @@ package com.example.springmall.sample.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -107,9 +108,6 @@ public class SampleService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
-		
-		
 		if(success == 1) {
 			System.out.println("가입성공");
 		}else {
@@ -134,6 +132,14 @@ public class SampleService {
 	public int removeSample(int sampleNo) {
 		System.out.println("SampleService.java.removeSample()");
 		int success = sampleMapper.deleteSample(sampleNo);
+		List<SampleFile> list = (List<SampleFile>) sampleFileMapper.selectFile(sampleNo);
+		int deleteFile = sampleFileMapper.sampleFileDelete(sampleNo);
+		if(list.size() >=1) {
+			for(int i=0; i<list.size(); i++) {
+				
+			}
+		}
+		
 		if(success == 1) {
 			System.out.println("삭제성공");
 		}else {
