@@ -4,6 +4,7 @@ package com.example.springmall.sample.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,11 +53,11 @@ public class SampleController {
 	}
 	// 입력 액션 메서드(insert action)
 	@RequestMapping(value="/sample/addSample",method=RequestMethod.POST)
-	public String addSample(SampleRequest sampleRequest,HttpServletRequest request) { // command 객체 
+	public String addSample(SampleRequest sampleRequest,HttpSession session) { // command 객체 
 		System.out.println("SampleCountroller.java.addSample().POST");
 		// command 객체의 멤버변수 == input 태그 name 속성 
-		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/uploads");
-		int row = sampleService.addSample(sampleRequest,path);
+		String path = session.getServletContext().getRealPath("\\WEB-INF\\uploads");
+		sampleService.addSample(sampleRequest,path);
 		return "redirect:/sample/sampleList";
 	}
 	// 리스트 메서드(select member)
@@ -70,6 +71,13 @@ public class SampleController {
 		model.addAttribute("sampleList",sampleList);
 		return "/sample/sampleList";
 		
+	}
+
+	@RequestMapping(value="/sample/viewDetails",method=RequestMethod.GET)
+	public String viewDetails(@RequestParam(value="sampleNo") int sampleNo) {
+		System.out.println("SampleController.java.viewDetails()");
+		sampleService.
+		return "/sample/viewDetails";
 	}
 	// 삭제 메서드 (delete member)
 	@RequestMapping(value="/sample/removeSample",method=RequestMethod.GET)

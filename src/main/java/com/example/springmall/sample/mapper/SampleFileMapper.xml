@@ -20,10 +20,6 @@
 				,#{sampleFileSize}
 				,now())
 	</insert>
-	<delete id="sampleFileDelete" parameterType="int">
-		DELETE FROM samplefile
-		WHERE samplefile_no=#{sampleNo}
-	</delete>
 	<select id="selectFile" parameterType="int" resultType="com.example.springmall.sample.vo.SampleFile">
 		SELECT samplefile_path AS sampleFilePath
 			  ,samplefile_name AS sampleFileName

@@ -28,6 +28,11 @@ public class SampleService {
 	@Autowired
 	private SampleFileMapper sampleFileMapper;
 	
+	public SampleFile viewDetails(int sampleNo) {
+		System.out.println("SampleService.java.viewDetails()");
+		sampleFileMapper
+	}
+	// 로그인 
 	public int loginSample(SampleRequest sampleRequest) {
 		System.out.println("SampleService.java.loginSample()");
 		Sample sample = new Sample();
@@ -102,7 +107,7 @@ public class SampleService {
 		sampleFileMapper.insertSampleFile(sampleFile);
 		
 		try {
-			multipartFile.transferTo(new File(path+"/"+fileName+"."+ext));
+			multipartFile.transferTo(new File(path+File.separator+fileName+"."+ext));
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -131,15 +136,13 @@ public class SampleService {
 	}
 	public int removeSample(int sampleNo) {
 		System.out.println("SampleService.java.removeSample()");
+		SampleFile sampleFile = sampleFileMapper.selectFile(sampleNo);
 		int success = sampleMapper.deleteSample(sampleNo);
-		List<SampleFile> list = (List<SampleFile>) sampleFileMapper.selectFile(sampleNo);
-		int deleteFile = sampleFileMapper.sampleFileDelete(sampleNo);
-		if(list.size() >=1) {
-			for(int i=0; i<list.size(); i++) {
-				
-			}
-		}
-		
+		String path = sampleFile.getSampleFilePath();
+		String fileName = sampleFile.getSampleFileName();
+		String fileExt = sampleFile.getSampleFileExt();
+		File file = new File(path+"/"+fileName+"."+fileExt);
+		file.delete();
 		if(success == 1) {
 			System.out.println("삭제성공");
 		}else {
